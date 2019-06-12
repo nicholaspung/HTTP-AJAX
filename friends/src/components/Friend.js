@@ -42,16 +42,30 @@ class Friend extends React.Component {
 
     render() {
         return (
+            // <div>
+            //     {this.state.toggleButton ? <AddFriend state={this.state} onInputChange={this.onInputChange} changeToggle={this.changeToggle} onSubmitForm={e => this.updateFriend(this.props.friend.id, e)}/> : 
+            //         <div>
+            //             <p>
+            //                 {this.state.updatedName}, {this.state.updatedAge}
+            //                 <button onClick={() => this.props.deleteFriend(this.props.friend.id)}>delete friend</button>
+            //             </p>
+            //             <p>{this.state.updatedEmail}</p>
+            //             <button onClick={this.changeToggle}>update friend</button>
+            //         </div>}
+            // </div>
             <div>
-                {this.state.toggleButton ? <AddFriend state={this.state} onInputChange={this.onInputChange} changeToggle={this.changeToggle} onSubmitForm={e => this.updateFriend(this.props.friend.id, e)}/> : 
-                    <div>
-                        <p>
-                            {this.state.updatedName}, {this.state.updatedAge}
-                            <button onClick={() => this.props.deleteFriend(this.props.friend.id)}>delete friend</button>
-                        </p>
-                        <p>{this.state.updatedEmail}</p>
-                        <button onClick={this.changeToggle}>update friend</button>
-                    </div>}
+                <div>
+                    <p>
+                        {this.state.updatedName}, {this.state.updatedAge}
+                        <button onClick={() => this.props.deleteFriend(this.props.friend.id)}>delete friend</button>
+                    </p>
+                    <p>{this.state.updatedEmail}</p>
+                    {!this.state.toggleButton ? <button onClick={this.changeToggle}>update friend</button> : ''}
+                </div>
+                {this.state.toggleButton ? <div>
+                    <p>Update Friend</p>
+                    <AddFriend state={this.state} onInputChange={this.onInputChange} changeToggle={this.changeToggle} onSubmitForm={e => this.updateFriend(this.props.friend.id, e)}/>
+                </div> : ''}
             </div>
         );
     }
