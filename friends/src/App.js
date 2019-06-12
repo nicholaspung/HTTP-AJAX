@@ -10,16 +10,22 @@ class App extends React.Component {
     name: '',
     age: '',
     email: '',
-    id: ''
+    id: '',
+    mapId: ''
   }
 
   componentDidMount() {
-    this.grabFriendData()
+    // passes in something to initiate mapId to friends length synchronously
+    this.grabFriendData(1)
   }
 
-  grabFriendData = () => {
+  grabFriendData = (id = 0) => {
     axios.get('http://localhost:5000/friends')
       .then(res => this.setState({ friends: res.data }))
+      .then(e => {
+        // code is only used to initiate mapId to friends length synchronously, no other use case was thought of for this code
+        if (id) {this.setState({ mapId: this.state.friends.length+1})}
+      })
       .catch(err => console.log('Error', err))
   }
 
@@ -33,10 +39,10 @@ class App extends React.Component {
       name: this.state.name,
       age: parseInt(this.state.age),
       email: this.state.email,
-      id: this.state.friends.length+1
+      id: this.state.mapId
     })
       .then(res => {
-        console.log(res)
+        this.setState(prevState => ({ mapId: prevState.mapId+1 }))
         return this.grabFriendData()
       })
       .catch(err => console.log('Error', err))
@@ -45,10 +51,9 @@ class App extends React.Component {
   deleteFriend = id => {
     axios.delete(`http://localhost:5000/friends/${id}`)
       .then(res => {
-        console.log(res)
         return this.grabFriendData()
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.message))
   }
 
   render () {
