@@ -5,7 +5,7 @@ const Friend = props => {
         <div>
             <p>
                 {props.friend.name}, {props.friend.age}
-                <button>delete friend</button>
+                <button onClick={() => props.deleteFriend(props.friend.id)}>delete friend</button>
             </p>
             <p>{props.friend.email}</p>
         </div>
