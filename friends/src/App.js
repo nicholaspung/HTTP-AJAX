@@ -3,6 +3,7 @@ import './App.css';
 import FriendList from './components/FriendList';
 import AddFriend from './components/AddFriend';
 import axios from 'axios';
+import { Route, Link } from 'react-router-dom';
 
 class App extends React.Component {
   state = {
@@ -50,6 +51,11 @@ class App extends React.Component {
         Hello
         <AddFriend onSubmitForm={this.addNewFriend} onInputChange={this.onInputChange} title="Add a New Friend!" state={this.state} />
         <FriendList friends={this.state.friends} deleteFriend={this.deleteFriend}/>
+        {/* <Link to='/addfriend'>Add a friend</Link>
+        <Link to='friends'>Friend list</Link>
+
+        <Route path="/addfriend" render={prop => <AddFriend onSubmitForm={prop.addNewFriend} onInputChange={prop.onInputChange} title="Add a New Friend!" state={prop.state}/>}/>
+        <Route path="/friends" render={prop => <FriendList friends={prop.state.friends} deleteFriend={prop.deleteFriend}/>}/> */}
       </div>
     );
   }
