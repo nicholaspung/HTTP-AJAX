@@ -3,7 +3,7 @@ import './App.css';
 import FriendList from './components/FriendList';
 import AddFriend from './components/AddFriend';
 import axios from 'axios';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 
 class App extends React.Component {
   state = {
@@ -37,6 +37,8 @@ class App extends React.Component {
         email: ''
       }))
       .catch(err => console.log('Error', err))
+
+      this.props.history.push('/friends')
   }
 
   deleteFriend = id => {
@@ -48,14 +50,12 @@ class App extends React.Component {
   render () {
     return (
       <div className="App">
-        Hello
-        <AddFriend onSubmitForm={this.addNewFriend} onInputChange={this.onInputChange} title="Add a New Friend!" state={this.state} />
-        <FriendList friends={this.state.friends} deleteFriend={this.deleteFriend}/>
-        {/* <Link to='/addfriend'>Add a friend</Link>
-        <Link to='friends'>Friend list</Link>
+        <NavLink exact activeStyle={{background: "red"}} to='/'>Home</NavLink>
+        <NavLink activeStyle={{background: "red"}} to='/addfriend'>Add a friend</NavLink>
+        <NavLink activeStyle={{background: "red"}} to='/friends'>Friend list</NavLink>
 
-        <Route path="/addfriend" render={prop => <AddFriend onSubmitForm={prop.addNewFriend} onInputChange={prop.onInputChange} title="Add a New Friend!" state={prop.state}/>}/>
-        <Route path="/friends" render={prop => <FriendList friends={prop.state.friends} deleteFriend={prop.deleteFriend}/>}/> */}
+        <Route path="/addfriend" render={props => <AddFriend onSubmitForm={this.addNewFriend} onInputChange={this.onInputChange} title="Add a New Friend!" {...props} state={this.state}/>}/>
+        <Route path="/friends" render={props => <FriendList {...props} friends={this.state.friends} deleteFriend={this.deleteFriend}/>}/>
       </div>
     );
   }
